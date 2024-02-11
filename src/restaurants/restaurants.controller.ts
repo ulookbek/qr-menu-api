@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Headers,
+} from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
@@ -18,12 +27,16 @@ export class RestaurantsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.restaurantsService.findOne(+id);
+  findOne(@Param('id') id: string, @Headers() headers: Headers) {
+    const lang: string = headers['accept-language'] || 'en';
+    return this.restaurantsService.findOne(+id, lang);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRestaurantDto: UpdateRestaurantDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateRestaurantDto: UpdateRestaurantDto,
+  ) {
     return this.restaurantsService.update(+id, updateRestaurantDto);
   }
 

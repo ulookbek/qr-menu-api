@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
+import { restaurantNotFound } from './constants';
 
 @Injectable()
 export class RestaurantsService {
@@ -19,8 +20,14 @@ export class RestaurantsService {
     return this.restaurantRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} restaurant`;
+  async findOne(id: number, lang?: string) {
+    try {
+      return await this.restaurantRepository.findOneOrFail({
+        where: { id },
+      });
+    } catch (e) {
+      throw new NotFoundException(restaurantNotFound[lang || 'en']);
+    }
   }
 
   update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
