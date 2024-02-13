@@ -1,23 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { LanguageEntity } from '../../common/language.entity';
 
 @Entity()
 export class Restaurant {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: {
-    ru: string;
-    kg: string;
-    en: string;
-  };
+  @Column(() => LanguageEntity)
+  name: LanguageEntity;
 
-  @Column()
-  description: {
-    ru: string;
-    kg: string;
-    en: string;
-  };
+  @Column(() => LanguageEntity)
+  description: LanguageEntity;
 
   @Column()
   bgImage: string;

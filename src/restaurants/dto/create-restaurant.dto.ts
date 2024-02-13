@@ -1,3 +1,7 @@
 export class CreateRestaurantDto {
-  name: string;
+  name: {
+    ru: string;
+    kg: string;
+    en: string;
+  };
 }
