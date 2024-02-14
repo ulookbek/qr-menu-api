@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Restaurant } from './restaurants/entities/restaurant.entity';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { Restaurant } from './restaurants/entities/restaurant.entity';
       synchronize: true,
       logging: true,
     }),
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],
