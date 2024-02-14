@@ -30,8 +30,20 @@ export class RestaurantsService {
     }
   }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return `This action updates a #${id} restaurant`;
+  async update(
+    id: number,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    const restaurant = await this.restaurantRepository.findOneBy({ id });
+    if (!restaurant) {
+      throw new NotFoundException(`Restaurant with ID "${id}" not found`);
+    }
+
+    // Слить существующие данные с новыми данными из DTO
+    const updatedRestaurant = Object.assign(restaurant, updateRestaurantDto);
+    await this.restaurantRepository.save(updatedRestaurant);
+
+    return updatedRestaurant;
   }
 
   remove(id: number) {

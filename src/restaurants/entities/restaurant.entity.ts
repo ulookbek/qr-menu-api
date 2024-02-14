@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { LanguageEntity } from '../../common/language.entity';
 
-@Entity()
+@Entity('restaurants')
 export class Restaurant {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,18 +12,26 @@ export class Restaurant {
   @Column(() => LanguageEntity)
   description: LanguageEntity;
 
-  @Column()
+  @Column({ default: '' })
   bgImage: string;
 
-  @Column()
+  @Column({ default: '' })
   wifiName: string;
 
-  @Column()
+  @Column({ default: '' })
   wifiPassword: string;
 
-  @Column()
+  @Column({ default: '' })
   address: string;
 
-  @Column()
+  @Column({ default: '' })
   phoneNumber: string;
+
+  @Column({
+    type: 'jsonb',
+    array: false,
+    default: () => "'[]'",
+    nullable: false,
+  })
+  public menu: Array<{ name: string }>;
 }
