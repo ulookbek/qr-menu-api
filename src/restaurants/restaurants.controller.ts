@@ -16,24 +16,7 @@ import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
-
-export const editFileName = (req, file, callback) => {
-  const name = file.originalname.split('.')[0];
-  const fileExtName = extname(file.originalname);
-  const randomName = Array(4)
-    .fill(null)
-    .map(() => Math.round(Math.random() * 16).toString(16))
-    .join('');
-  callback(null, `${name}-${randomName}${fileExtName}`);
-};
-
-export const imageFileFilter = (req, file, callback) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-    return callback(new Error('Only image files are allowed!'), false);
-  }
-  callback(null, true);
-};
+import { editFileName, imageFileFilter } from './utils/utils';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -55,11 +38,10 @@ export class RestaurantsController {
     }),
   )
   uploadFile(@UploadedFile() image: Express.Multer.File) {
-    const response = {
-      originalName: image.originalname,
-      filename: image.filename,
-    };
-    console.log('image: ', response);
+    // const response = {
+    //   originalName: image.originalname,
+    //   filename: image.filename,
+    // };
     return this.restaurantsService.findAll();
   }
 
