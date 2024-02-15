@@ -18,7 +18,7 @@ import { MenuModule } from './menu/menu.module';
       database: 'qr-menu',
       entities: [Restaurant],
       synchronize: true,
-      logging: true,
+      logging: false,
     }),
     MenuModule,
   ],
