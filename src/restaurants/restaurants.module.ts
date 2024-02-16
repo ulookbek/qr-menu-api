@@ -9,7 +9,7 @@ import { MulterModule } from '@nestjs/platform-express';
   imports: [
     TypeOrmModule.forFeature([Restaurant]),
     MulterModule.register({
-      dest: './media',
+      dest: './media/restaurants',
     }),
   ],
   controllers: [RestaurantsController],

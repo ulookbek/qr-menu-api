@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { LanguageEntity } from '../../common/language.entity';
 
-@Entity('menu')
-export class Menus {
+@Entity('menus')
+export class Menu {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -12,9 +12,9 @@ export class MenuController {
     return this.menuService.create(createMenuDto);
   }
 
-  @Get()
-  findAll() {
-    return this.menuService.findAll();
+  @Get(':id')
+  findAll(@Param('id') id: string) {
+    return this.menuService.findAll({ id });
   }
 
   @Get(':id')
