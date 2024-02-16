@@ -6,18 +6,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Restaurant } from './restaurants/entities/restaurant.entity';
 import { MenuModule } from './menu/menu.module';
 import { Menu } from './menu/entities/menu.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     RestaurantsModule,
     MenuModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'qweqwe123123',
-      database: 'qr-menu',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_DB,
       entities: [Restaurant, Menu],
       synchronize: true,
       logging: false,
