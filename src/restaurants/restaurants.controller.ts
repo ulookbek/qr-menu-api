@@ -38,11 +38,9 @@ export class RestaurantsController {
     }),
   )
   uploadFile(@UploadedFile() image: Express.Multer.File) {
-    // const response = {
-    //   originalName: image.originalname,
-    //   filename: image.filename,
-    // };
-    return this.restaurantsService.findAll();
+    return {
+      message: image.filename,
+    };
   }
 
   @Get()
